@@ -1,0 +1,11 @@
+name: synthetic_demo
+metric_version: 1
+gate_policy_version: 1
+thresholds: {}
+runs:
+- name: full_stack
+  bag: bags/degraded.mcap
+  metrics:
+  - planning
+  - localization
+  - detection

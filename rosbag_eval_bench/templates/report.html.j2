@@ -1,0 +1,48 @@
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>rosbag-eval-bench report — {{ results.suite }}</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 0.4rem 0.6rem; text-align: right; }
+    th:first-child, td:first-child { text-align: left; }
+    .pass { color: #0a7; font-weight: 600; }
+    .fail { color: #c22; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Evaluation report — {{ results.suite }}</h1>
+  <p>Metric version {{ results.metric_version }} · gate policy {{ results.gate_policy_version }}</p>
+  {% if results.compare_rows is defined %}
+  <h2>Baseline comparison</h2>
+  <table>
+    <thead>
+      <tr><th>Metric</th><th>Baseline</th><th>Candidate</th><th>Delta</th><th>Result</th></tr>
+    </thead>
+    <tbody>
+    {% for row in results.compare_rows if row.gated %}
+      <tr>
+        <td>{{ row.name }}</td>
+        <td>{{ row.baseline if row.baseline is not none else 'n/a' }}</td>
+        <td>{{ row.candidate if row.candidate is not none else 'n/a' }}</td>
+        <td>{{ row.delta if row.delta is not none else 'n/a' }}</td>
+        <td class="{{ 'pass' if row.passed else 'fail' }}">{{ 'PASS' if row.passed else 'FAIL' }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+  <h2>Figures</h2>
+  {% for run in results.runs %}
+    {% if run.series.ate_series is defined %}
+    <p><img src="{{ figures }}/ate_{{ run.name }}.png" alt="ATE series" /></p>
+    {% endif %}
+    {% if run.series.path_poses is defined %}
+    <p><img src="{{ figures }}/path_{{ run.name }}.png" alt="Path" /></p>
+    {% endif %}
+  {% endfor %}
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "rosbag-eval-bench-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --base /rosbag-eval-bench/",
+    "test": "vitest run",
+    "capture-demo": "node scripts/capture-demo.mjs"
+  },
+  "engines": {
+    "node": "26.13.0",
+    "npm": "11.20.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@playwright/test": "1.65.0",
+    "@types/node": "22.10.2",
+    "typescript": "7.0.2",
+    "vite": "8.3.7",
+    "vitest": "5.1.0"
+  }
+}

@@ -1,6 +1,6 @@
 # rosbag-eval-bench — v1 plan
 
-Checked 2026-11-10. Outbound license is **Apache-2.0**. This document incorporates `PLAN_draft.md` and independent verification (pinned-library MCAP round-trip, ATE/IoU/AP/RPE/smoothness oracles, and regression-gate arithmetic). Planning only; no public repo or implementation is created by this document.
+Checked 2026-11-10. Outbound license is **Apache-2.0**. This document incorporates an independent review of `PLAN_draft.md` and additional verification (pinned-library MCAP round-trip, ATE/IoU/AP/RPE/smoothness oracles, and regression-gate arithmetic). Planning only; no public repo or implementation is created by this document.
 
 ## Goal
 

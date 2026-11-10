@@ -1,0 +1,26 @@
+{# SPDX-License-Identifier: Apache-2.0 #}
+# Evaluation report — {{ results.suite }}
+
+Metric version: {{ results.metric_version }}  
+Gate policy version: {{ results.gate_policy_version }}
+
+{% if results.compare_rows is defined %}
+## Baseline comparison
+
+| Metric | Baseline | Candidate | Delta | Result |
+| --- | ---: | ---: | ---: | --- |
+{% for row in results.compare_rows if row.gated %}
+| {{ row.name }} | {{ row.baseline if row.baseline is not none else 'n/a' }} | {{ row.candidate if row.candidate is not none else 'n/a' }} | {{ row.delta if row.delta is not none else 'n/a' }} | {{ 'PASS' if row.passed else 'FAIL' }} |
+{% endfor %}
+{% endif %}
+
+## Runs
+
+{% for run in results.runs %}
+### {{ run.name }}
+
+{% for k, v in run.metrics.items() %}
+- {{ k }}: {{ v if v is not none else 'null' }}
+{% endfor %}
+
+{% endfor %}

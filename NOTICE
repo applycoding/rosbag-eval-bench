@@ -1,0 +1,32 @@
+rosbag-eval-bench, Copyright 2026 Arpan Bom
+
+This product includes software developed by Arpan Bom (applycoding@gmail.com).
+
+Vendored ROS 2 message definitions (message text only; upstream licenses apply to those files):
+
+- ros2/common_interfaces (humble commit 08434490d3e4abd37ccc5462cdde69b88853b5b8) — Apache-2.0
+  https://github.com/ros2/common_interfaces
+- ros-perception/vision_msgs tag 4.1.1 (commit e77fa2d97d69abaaa546592892d2d5d16cec9977) — Apache-2.0
+  https://github.com/ros-perception/vision_msgs
+- ros2/rcl_interfaces (humble commit 82776fc9068d1e0cd4af11c2e2700195994b2eb1) — Apache-2.0
+  https://github.com/ros2/rcl_interfaces
+
+Direct Python dependencies (runtime):
+
+- mcap 1.6.0 — MIT
+- mcap-ros2-support 0.6.0 — MIT
+- numpy 2.5.4 — BSD-3-Clause and other licenses (see NumPy METADATA)
+- matplotlib 3.11.2 — License agreement for Python 1.1 (PSF-style)
+- Jinja2 3.1.6 — BSD-3-Clause
+- MarkupSafe 3.0.4 — BSD-3-Clause
+- PyYAML 6.0.3 — MIT
+- pydantic 2.14.3 — MIT
+- pydantic-core 2.50.4 — MIT
+- lz4 4.4.5 — BSD-3-Clause
+- zstandard 0.25.0 — BSD-3-Clause
+
+Development dependencies include pytest (MIT), ruff (MIT), and pip-tools (MIT).
+
+JavaScript build dependencies include TypeScript, Vite, Vitest, and Playwright under their respective npm package licenses.
+
+NumPy may bundle additional third-party components; refer to the installed package METADATA for the complete license list.

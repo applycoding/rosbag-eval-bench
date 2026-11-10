@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg
+
+# Node / web toolchain
+web/node_modules/
+web/dist/
+web/test-results/
+web/playwright-report/
+web/blob-report/
+web/playwright/.cache/
+*.tsbuildinfo
+
+# Generated evaluation reports (recreated by `reb eval`)
+reports/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

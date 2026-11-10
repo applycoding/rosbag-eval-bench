@@ -1,0 +1,12 @@
+{
+  "bag": "fixtures/bags/nominal.mcap",
+  "topics": [
+    "/gt/pose",
+    "/candidate/pose",
+    "/candidate/path",
+    "/gt/goal",
+    "/gt/map",
+    "/gt/detections",
+    "/candidate/detections"
+  ]
+}

@@ -1,0 +1,39 @@
+/* SPDX-License-Identifier: Apache-2.0 */
+body {
+  font-family: system-ui, sans-serif;
+  margin: 1.5rem;
+  max-width: 960px;
+}
+
+table.diff {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+table.diff th,
+table.diff td {
+  border: 1px solid #ccc;
+  padding: 0.35rem 0.5rem;
+  text-align: right;
+}
+
+table.diff th:first-child,
+table.diff td:first-child {
+  text-align: left;
+}
+
+.pass {
+  color: #067a36;
+  font-weight: 600;
+}
+
+.fail {
+  color: #b00020;
+  font-weight: 600;
+}
+
+canvas {
+  border: 1px solid #ddd;
+  background: #fafafa;
+}

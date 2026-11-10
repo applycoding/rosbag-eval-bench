@@ -1,0 +1,54 @@
+# SPDX-License-Identifier: Apache-2.0
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rosbag-eval-bench"
+version = "0.1.0"
+description = "Synthetic ROS 2 MCAP regression evaluation bench"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.12"
+authors = [{ name = "Arpan Bom", email = "applycoding@gmail.com" }]
+dependencies = [
+    "mcap==1.6.0",
+    "mcap-ros2-support==0.6.0",
+    "numpy==2.5.4",
+    "matplotlib==3.11.2",
+    "Jinja2==3.1.6",
+    "MarkupSafe==3.0.4",
+    "PyYAML==6.0.3",
+    "pydantic==2.14.3",
+    "pydantic-core==2.50.4",
+    "lz4==4.4.5",
+    "zstandard==0.25.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==9.2.0",
+    "ruff==0.17.4",
+    "pip-tools==7.4.1",
+]
+
+[project.scripts]
+reb = "rosbag_eval_bench.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["rosbag_eval_bench*"]
+
+[tool.setuptools.package-data]
+rosbag_eval_bench = ["msgs/**/*.msg"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
