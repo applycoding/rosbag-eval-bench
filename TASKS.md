@@ -93,7 +93,7 @@ Each task has acceptance checks. A task is done only when those checks pass.
 
 - `.github/workflows/ci.yml` with core, web, comment, and pages jobs as in PLAN.md. Pin Actions to full SHAs in `.github/workflow-pins.md`.
 - Degraded exit 1 is asserted in a shell step without `|| true`. Comment job has `pull-requests: write` only, runs on a valid exit 1, skips forks, does not execute PR code. Pages deploys the tested `web/dist` from `main` only after core and web of the **same commit**.
-- Optional Humble job, if added, is isolated (`tools/humble_smoke.py`, no numpy 2.5 install), digest-pinned, and non-gating.
+- Optional Humble job, if added, is isolated (`tools/humble_smoke.py`, no numpy 2.5 install), non-gating, and does not open a bag.
 
 **Accept:** Criterion 10 and the workflow shape in PLAN.md hold. A first branch CI shows core and web green, including the degraded-fail assertion.
 

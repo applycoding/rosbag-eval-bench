@@ -4,7 +4,7 @@ Checked 2026-11-10. Outbound license is **Apache-2.0**. This document incorporat
 
 ## Goal
 
-Public portfolio demo for Arpan Bom: an offline regression bench for robot software. It reads small **synthetic** ROS 2 MCAP bags, scores planning, localization, and detection outputs against ground truth in the same bag, writes an HTML and Markdown report, and fails CI when gated metrics regress past absolute thresholds versus a committed baseline.
+Public portfolio demo for Arpan Bom: an offline regression bench for robot software. It reads small **synthetic** ROS 2 MCAP bags, scores planning, localization, and detection outputs against ground truth in the same bag, writes an HTML and Markdown report, and runs a direction-aware CI gate against a committed baseline (one-sided absolute allowances). The nominal suite must exit 0; the degraded suite must exit 1 with FAIL on `full_stack.ate_rmse`, `full_stack.path_length`, and `full_stack.map`.
 
 TIER IV and Lely have asked for this kind of testing, and 24 tracked roles mention evals. This repo is a portfolio bench on synthetic fixtures. It does not claim that Arpan has shipped Autoware evaluation, TIER IV `driving_log_replayer`, Lely production HIL, or certified robot-software QA.
 
@@ -12,7 +12,7 @@ Commit author and committer are Arpan Bom <applycoding@gmail.com>; no co-author 
 
 ## Scope
 
-Python package `rosbag_eval_bench`, console script `reb`. Default path reads and writes MCAP with `mcap==1.6.0` and `mcap-ros2-support==0.6.0` and does not import ROS. An optional Humble adapter (`tools/humble_smoke.py`) uses `rosbag2_py` only, is isolated from the numpy 2.5 / Python 3.12 stack, and does not gate core CI. Jazzy is a later port.
+Python package `rosbag_eval_bench`, console script `reb`. Default path reads and writes MCAP with `mcap==1.6.0` and `mcap-ros2-support==0.6.0` and does not import ROS. An optional Humble smoke job (`tools/humble_smoke.py`) is a non-gating stub: it is isolated from the numpy 2.5 / Python 3.12 stack, does not open a bag, and does not gate core CI. Jazzy is a later port.
 
 v1 metric families:
 
@@ -223,7 +223,7 @@ Stdlib `argparse`. No network and no telemetry after install.
 
 ### Optional Humble smoke
 
-NumPy 2.5.4 requires Python `>= 3.12`; Humble’s image Python is 3.10 (EOL upstream since 2026-10-01). The optional job therefore **must not install the main package**. `tools/humble_smoke.py` uses only the stdlib plus `rosbag2_py` (and `rosbag2_storage_mcap` as needed) to open a committed fixture and check topic names and `log_time_ns` against a precomputed manifest. Pin `ros:humble-ros-base@sha256:…` and platform **before** the first run, not after. The job is `continue-on-error` / informational and does not gate core tests or Pages.
+NumPy 2.5.4 requires Python `>= 3.12`; Humble’s image Python is 3.10 (EOL upstream since 2026-10-01). The optional job therefore **must not install the main package**. As shipped, `tools/humble_smoke.py` is a non-gating stub: it checks that a committed manifest exists and, if `rosbag2_py` is importable, that the manifest lists topics. It does **not** open a bag, and the CI job runs on `ubuntu-24.04` without a ROS Humble image (`continue-on-error`). It does not gate core tests or Pages.
 
 ## Pinned stack
 
@@ -367,10 +367,11 @@ README credits idea sources and states the implementation is original. It must s
 
 - Synthetic fixtures, simulation only.
 - Aligned ATE uses a rigid SE(2) estimate-to-GT transform; a constant offset will not fail the gate.
-- RPE is Sturm-style time-based relative pose error at Δt = 1 s, not KITTI distance-based relative error.
+- RPE is Sturm-style time-based relative pose error at Δt = 1 s, not KITTI distance-based relative error. RPE is not computed in aligned and unaligned forms; only ATE has both (aligned is gated, unaligned is reported only).
 - AP is all-point interpolation at COCO IoU thresholds, not official COCO 101-point AP.
+- The regression gate is direction-aware (one-sided allowances). Nominal exits 0; degraded exits 1 with FAIL on `full_stack.ate_rmse`, `full_stack.path_length`, and `full_stack.map`.
 - Clearance is polyline-to-occupied-square distance; unknown cells are passable; time-to-goal uses path pose stamps, not a live robot arrival.
-- A 2.5 / Python 3.12 stack is not installed in the Humble smoke job.
+- The Humble smoke job is a non-gating stub that does not install the 2.5 / Python 3.12 stack and does not open a bag.
 
 Idea references are listed in `REFERENCES.md`.
 

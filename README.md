@@ -1,6 +1,6 @@
 # rosbag-eval-bench
 
-Offline regression evaluation bench for robot software by **Arpan Bom**. It reads **synthetic** ROS 2 MCAP logs, scores planning, localization, and detection against ground truth in the same bag, writes HTML/Markdown/`results.json`, and fails CI when gated metrics regress versus a committed baseline.
+Offline regression evaluation bench for robot software by **Arpan Bom**. It reads **synthetic** ROS 2 MCAP logs, scores planning, localization, and detection against ground truth in the same bag, and writes HTML/Markdown/`results.json`. CI uses a **direction-aware** gate against a committed baseline (one-sided allowances; an improvement in the better direction does not fail). The nominal suite must exit 0; the degraded suite must exit 1 with FAIL on `full_stack.ate_rmse`, `full_stack.path_length`, and `full_stack.map`.
 
 **Synthetic fixtures and simulation only.** This demo does not use real vehicle, farm, or customer bags. It does not claim Autoware compatibility, TIER IV `driving_log_replayer` production use, Lely hardware-in-the-loop testing, or certified functional-safety QA.
 
@@ -45,7 +45,7 @@ See `PLAN.md` and `TASKS.md`. Committed synthetic bags (`fixtures/bags/`, seed `
 - A **constant** pose offset is removed by rigid alignment and will **not** fail `ate_rmse`; the degraded fixture uses non-rigid drift.
 - Clearance is centerline-to-occupied-square distance; `clearance == robot_radius` passes.
 - `vision_msgs/Pose2D` uses nested `position.x` / `position.y` and `theta` (Humble 4.1.1).
-- Optional `tools/humble_smoke.py` does **not** install this package’s numpy 2.5 / Python 3.12 stack; it is informational and non-gating.
+- The optional ROS 2 Humble smoke job is a non-gating stub (`continue-on-error`). `tools/humble_smoke.py` does **not** install this package’s numpy 2.5 / Python 3.12 stack and does **not** open a bag.
 
 ## References
 
